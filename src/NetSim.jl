@@ -19,6 +19,7 @@ export NeuronParameters
 include("layers.jl")
 include("networks.jl")
 include("connections.jl")
+include("neurons.jl")
 include("visualize.jl")
 
 end
