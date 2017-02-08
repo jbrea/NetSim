@@ -15,6 +15,7 @@ end
 
 function updateconnection!(c::Connection)
 end
+export updateconnection!
 
 # sparse connections
 
