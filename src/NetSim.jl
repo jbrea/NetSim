@@ -20,6 +20,7 @@ include("layers.jl")
 include("networks.jl")
 include("connections.jl")
 include("neurons.jl")
+include("monitor.jl")
 include("visualize.jl")
 
 end
