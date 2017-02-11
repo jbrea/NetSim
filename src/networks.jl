@@ -80,6 +80,9 @@ and increment `net.time`.
 function updatenet!(net::SimpleNetwork)
 	net.time += 1
 	for l in net.layeriterator
+		collectmessages!(l.neurons, l.inputconnections)
+	end
+	for l in net.layeriterator
 		updateneuron!(l.neurons, l.inputconnections)
 	end
 	for c in net.plasticconnections
