@@ -1,4 +1,4 @@
-function updateneuron!(n::Neuron, c)
+function updateneuron!(n::Neuron)
 end
 export updateneuron!
 

@@ -83,7 +83,7 @@ function updatenet!(net::SimpleNetwork)
 		collectmessages!(l.neurons, l.inputconnections)
 	end
 	for l in net.layeriterator
-		updateneuron!(l.neurons, l.inputconnections)
+		updateneuron!(l.neurons)
 	end
 	for c in net.plasticconnections
 		updateconnection!(c)
