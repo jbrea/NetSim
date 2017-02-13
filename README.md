@@ -12,6 +12,7 @@ Pkg.clone("https://github.com/jbrea/NetSim")
 ```julia
 using NetSim
 
+# Define neuron and parameter types
 type NoNeuronParameters <: NeuronParameters
 end
 
@@ -34,6 +35,8 @@ end
 function MyNeuron(n_of::Int64, parameters::MyNeuronParameters)
 	MyNeuron(parameters, zeros(n_of), zeros(n_of))
 end
+
+# define update and message collection function
 import NetSim.updateneuron!
 function updateneuron!(neuron::MyNeuron)
 	for i in 1:length(neuron.outp)
@@ -48,19 +51,23 @@ function collectmessages!(neuron::MyNeuron, inputconnections)
 					  1 - neuron.parameters.gamma)
 end
 
+# create a network
 net = SimpleNetwork()
 addlayer!(net, Layer(:inputlayer, InputNeuron, NoNeuronParameters(), 5))
 addlayer!(net, Layer(:firstlayer, MyNeuron, MyNeuronParameters(.8), 5))
 connect!(net, :inputlayer, :firstlayer, One2OneConnection)
 connect!(net, :firstlayer, :firstlayer, StaticDenseConnection)
 
+# Visualize network if installation of GraphViz was successful
 # visualizenet(net)
 
+# define variables to record
 recordedvariables =
 	[("potential", net.layers[:firstlayer].neurons.membranePotential, 1);
 	 ("outp", net.layers[:firstlayer].neurons.outp, 1);
 	 ("inp", net.layers[:inputlayer].neurons.outp, 1:5)]
 
+# initialize the state of the neurons and run the network for 10^2 steps
 net.layers[:firstlayer].neurons.membranePotential[:] = -rand(5)
 data = monitor(net, recordedvariables, 10^2)
 
