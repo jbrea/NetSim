@@ -3,7 +3,7 @@ A framework for fast prototyping of (rate-based and spiking neural) networks.
 
 ## Installation
 
-```
+```julia
 Pkg.clone("https://github.com/jbrea/NetSim")
 ```
 
