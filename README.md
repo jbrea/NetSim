@@ -9,7 +9,7 @@ Pkg.clone("https://github.com/jbrea/NetSim")
 
 ## Example
 
-```
+```julia
 using NetSim
 
 type NoNeuronParameters <: NeuronParameters
