@@ -10,8 +10,30 @@ end
 
 abstract Network
 export Network
+"""
+	abstract Connection
+	
+Connections have fields (see `createconnection` in connections.jl)
+	* `w`			parameters
+	* `pre`			pointer to neurons of pre layer
+	* `post`		pointer to neurons of post layer
+	* `prename`		name of pre layer
+	* `postname`	name of post layer
+
+PlasticSparseConnection <: Connection
+StaticSparseConnection <: Connection
+PlasticDenseConnection <: Connection
+StaticDenseConnection <: Connection
+One2OneConnection <: Connection
+TransposeDenseConnection <: Connection
+"""
 abstract Connection
 export Connection
+"""
+	abstract Neuron
+
+Neurons should at least have field `outp` (used by `weightedprerates`).
+"""
 abstract Neuron
 export Neuron
 abstract NeuronParameters

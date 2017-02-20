@@ -110,6 +110,11 @@ end
 
 # TransposeDenseConnection
 createconnection(:TransposeDenseConnection, Array{FloatXX, 2})
+"""
+	TransposeDenseConnection(c::PlasticDenseConnection, net::SimpleNetwork)
+
+Create a connection from `c.postname` to `c.prename` and a pointer to `c.w`.
+"""
 function TransposeDenseConnection(c::PlasticDenseConnection, net::SimpleNetwork)
 	TransposeDenseConnection(c.w, 
 						     net.layers[c.postname].neurons,
@@ -119,7 +124,15 @@ function TransposeDenseConnection(c::PlasticDenseConnection, net::SimpleNetwork)
 end
 
 # functions
+"""
+	weightedprerates!(v::Array{FloatXX, 1}, cons::Dict{Symbol, Connection}, scale::FloatXX)
 
+Update `v = v + scale * ∑_{con ∈ cons} con.w * con.pre.outp`.
+
+	weightedprerates!(v::Array{FloatXX, 1}, con::Connection, scale::FloatXX)
+
+Update `v = v + scale * con.w * con.pre.outp`.
+"""
 function weightedprerates!(v::Array{FloatXX, 1}, 
 						   con::Dict{Symbol, Connection}, 
 						   scale::FloatXX)
@@ -147,7 +160,12 @@ function weightedprerates!(v, c::Union{PlasticDenseConnection,
 end
 export weightedprerates!
 
-function copyweights!(netfrom::Network, netto::Network)
+"""
+	copyweights!(netfrom::SimpleNetwork, netto::SimpleNetwork)
+
+Deepcopy weight parameters from `netfrom` to `netto`
+"""
+function copyweights!(netfrom::SimpleNetwork, netto::SimpleNetwork)
 	for (ln, l) in netto.layers
         for (icn, ic) in l.inputconnections
             for (pren, pre) in ic
