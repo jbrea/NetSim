@@ -7,6 +7,9 @@ A framework for fast prototyping of (rate-based and spiking neural) networks.
 Pkg.clone("https://github.com/jbrea/NetSim")
 ```
 
+To visualize networks install graphviz (e.g. ```brew install graphviz``` on OSX
+or ```apt-get install graphviz``` on Ubuntu).
+
 ## Example
 
 ```julia

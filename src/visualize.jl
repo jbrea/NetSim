@@ -1,4 +1,4 @@
-using GraphViz
+#using GraphViz
 
 function getgraph(net::Network)
 	g = "digraph network {"
@@ -14,7 +14,13 @@ function getgraph(net::Network)
 end
 
 function visualizenet(net::Network)
-	g = Graph(getgraph(net))
-	GraphViz.layout!(g, engine = "dot"); GraphViz.render_x11(GraphViz.Context(), g)
+	g = getgraph(net)
+	try
+		run(pipeline(`echo $g`, `dot -Tx11`))
+	catch
+		warn("Is graphviz installed and in the search path?")
+		println("The graph to be plotted is:\n $g")
+	end
+	#GraphViz.layout!(g, engine = "dot"); GraphViz.render_x11(GraphViz.Context(), g)
 end
 export visualizenet
