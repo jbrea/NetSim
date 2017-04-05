@@ -90,3 +90,15 @@ function updatenet!(net::SimpleNetwork)
 	end
 end
 export updatenet!
+
+function updatenetasync!(net::SimpleNetwork)
+	net.time += 1
+	for l in net.layeriterator
+		collectmessages!(l.neurons, l.inputconnections)
+		updateneuron!(l.neurons)
+	end
+	for c in net.plasticconnections
+		updateconnection!(c)
+	end
+end
+export updatenetasync!
